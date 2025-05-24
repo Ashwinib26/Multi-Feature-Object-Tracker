@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Robust Visual Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Robust Visual Tracker</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label>Select Image:</label>
+            <input type="file" name="image" required />
+
+            <label for="threshold">Corner Threshold: <span id="threshold_val">0.1</span></label>
+            <input type="range" id="threshold" name="threshold" min="0.01" max="0.5" step="0.01" value="0.1" oninput="threshold_val.innerText = this.value" />
+
+            <button type="submit">Upload & Detect</button>
+            <button type="button" onclick="window.location.href='/'">Reset</button>
+        </form>
+
+        {% if original_image %}
+        <div class="images">
+            <div>
+                <h3>Original Image</h3>
+                <img src="{{ original_image }}" alt="Original Image" />
+            </div>
+            <div>
+                <h3>Processed Image</h3>
+                <img src="{{ processed_image }}" alt="Processed Image" />
+            </div>
+        </div>
+
+        <div class="stats">
+            <h3>Detection Stats:</h3>
+            <p>Corners Detected: {{ stats.corners_detected }}</p>
+            <p>Threshold Used: {{ stats.threshold }}</p>
+        </div>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
