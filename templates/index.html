@@ -1,43 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Robust Visual Tracker</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <meta charset="UTF-8">
+    <title>Feature Tracker App</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { display: flex; gap: 40px; }
+        img { max-width: 400px; }
+    </style>
 </head>
 <body>
+    <h1>Feature Tracker App</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label>Select image:</label>
+        <input type="file" name="image" required><br><br>
+
+        <label>Corner Threshold: <span id="threshValue">0.1</span></label><br>
+        <input type="range" name="threshold" min="0.01" max="0.5" step="0.01" value="0.1" oninput="document.getElementById('threshValue').innerText=this.value">
+        <br><br>
+
+        <button type="submit">Process</button>
+    </form>
+
+    {% if original_image and processed_image %}
+    <h2>Results:</h2>
     <div class="container">
-        <h1>Robust Visual Tracker</h1>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <label>Select Image:</label>
-            <input type="file" name="image" required />
-
-            <label for="threshold">Corner Threshold: <span id="threshold_val">0.1</span></label>
-            <input type="range" id="threshold" name="threshold" min="0.01" max="0.5" step="0.01" value="0.1" oninput="threshold_val.innerText = this.value" />
-
-            <button type="submit">Upload & Detect</button>
-            <button type="button" onclick="window.location.href='/'">Reset</button>
-        </form>
-
-        {% if original_image %}
-        <div class="images">
-            <div>
-                <h3>Original Image</h3>
-                <img src="{{ original_image }}" alt="Original Image" />
-            </div>
-            <div>
-                <h3>Processed Image</h3>
-                <img src="{{ processed_image }}" alt="Processed Image" />
-            </div>
+        <div>
+            <h3>Original</h3>
+            <img src="{{ original_image }}" alt="Original Image">
         </div>
-
-        <div class="stats">
-            <h3>Detection Stats:</h3>
-            <p>Corners Detected: {{ stats.corners_detected }}</p>
-            <p>Threshold Used: {{ stats.threshold }}</p>
+        <div>
+            <h3>Processed</h3>
+            <img src="{{ processed_image }}" alt="Processed Image">
         </div>
-        {% endif %}
     </div>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <p><strong>Corners Detected:</strong> {{ stats.corners_detected }}</p>
+    {% endif %}
 </body>
 </html>
