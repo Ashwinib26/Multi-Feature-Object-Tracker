@@ -15,12 +15,28 @@ body {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
-h1 {
+/* Header styling */
+header {
     text-align: center;
-    margin-bottom: 2rem;
-    color: #1976d2;
+    background-color: #1976d2;
+    color: white;
+    padding: 2rem 1rem 1.5rem;
+    border-radius: 16px 16px 0 0;
+    margin: -2rem -3rem 2rem -3rem; /* fill container */
 }
 
+header h1 {
+    font-size: 2rem;
+    margin: 0 0 0.5rem;
+}
+
+header p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* Upload Form */
 .upload-form {
     display: flex;
     flex-direction: column;
@@ -63,12 +79,14 @@ button:hover {
     background: #155a9c;
 }
 
+/* Result Titles */
 .results-title {
     margin-bottom: 1.5rem;
     color: #0d47a1;
     text-align: center;
 }
 
+/* Images Layout */
 .images {
     display: flex;
     flex-direction: row;
@@ -84,11 +102,14 @@ button:hover {
 }
 
 .images img {
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+/* Stats Box */
 .stats {
     background: #e3f2fd;
     padding: 1.2rem;
@@ -98,10 +119,36 @@ button:hover {
     color: #0d47a1;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
-.images img {
-    width: 100%;
-    max-height: 400px;
-    object-fit: contain;
+
+/* Object Status */
+.object-status {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.object-status.success {
+    background: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.object-status.error {
+    background: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Form Instruction Text */
+.form-instructions {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: #555;
 }

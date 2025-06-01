@@ -23,10 +23,8 @@ def upload():
 
     if ref_file and target_file:
         uid = str(uuid.uuid4())[:8]
-
         ref_filename = f"{uid}_ref_{secure_filename(ref_file.filename)}"
         target_filename = f"{uid}_target_{secure_filename(target_file.filename)}"
-
         ref_path = os.path.join(UPLOAD_FOLDER, ref_filename)
         target_path = os.path.join(UPLOAD_FOLDER, target_filename)
 

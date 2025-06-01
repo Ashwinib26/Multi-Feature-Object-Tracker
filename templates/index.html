@@ -2,42 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Object Tracking App</title>
+    <title>🔍 Object Tracking App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Object Tracking Using Feature Matching</h1>
+        <header>
+            <h1>🔍 Object Tracking App</h1>
+            <p>Detect and Match Objects Using Feature Tracking</p>
+        </header>
 
-        <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
-            <div>
-                <label>Upload Reference Image (Object):</label><br>
+        <div class="form-instructions">
+            Upload a reference image (object) and a target image (scene) to detect the object via feature matching.
+        </div>
+
+        <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+            <div class="form-group">
+                <label>🖼️ Reference Image (Object):</label>
                 <input type="file" name="reference_image" accept="image/*" required>
             </div>
-            <div>
-                <label>Upload Target Image (Scene):</label><br>
+            <div class="form-group">
+                <label>🌆 Target Image (Scene):</label>
                 <input type="file" name="target_image" accept="image/*" required>
             </div>
-            <button type="submit">Track Object</button>
+            <button type="submit">🚀 Track Object</button>
         </form>
 
         {% if original_image and processed_image %}
         <div class="images">
-            <div style="flex: 1;">
+            <div>
                 <h3>Original (Target) Image</h3>
                 <img src="{{ original_image }}" alt="Original Image">
             </div>
-            <div style="flex: 2;">
+            <div>
                 <h3>Processed Image with Matches</h3>
                 <img src="{{ processed_image }}" alt="Processed Image">
             </div>
         </div>
 
         {% if stats %}
-        <div class="stats">
-            Total Keypoint Matches: {{ stats.total_matches }}<br>
-            Top Matches Shown: {{ stats.top_matches_drawn }}
-        </div>
+            {% if stats.detected %}
+            <div class="object-status success">✅ Object Found! Matches Detected: {{ stats.total_matches }}</div>
+            {% else %}
+            <div class="object-status fail">❌ Object Not Found. Matches Too Low ({{ stats.total_matches }})</div>
+            {% endif %}
+
+            <div class="stats">
+                📊 Total Keypoint Matches: {{ stats.total_matches }}<br>
+                🖍️ Top Matches Shown: {{ stats.top_matches_drawn }}
+            </div>
         {% endif %}
         {% endif %}
     </div>
